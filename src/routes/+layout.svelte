@@ -2,9 +2,9 @@
 	import '@skeletonlabs/skeleton/themes/theme-modern.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import Wrapper from '../components/Wrapper.svelte';
+	import { Modal, Toast } from '@skeletonlabs/skeleton';
 </script>
 
-
+<Toast />
+<Modal />
 <slot />
-

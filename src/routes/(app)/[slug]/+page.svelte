@@ -1,17 +1,29 @@
-<script>
+<script lang="ts">
 	import Wrapper from '../../../components/Wrapper.svelte';
+	import Choices from '../../../components/voter/Choices.svelte';
+	import { Stepper, Step } from '@skeletonlabs/skeleton';
+	import VoteInput from '../../../components/voter/VoteInput.svelte';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+	import { doc, onSnapshot } from 'firebase/firestore';
+	import { db, type poll } from '../../../functions/firebase';
+	import VotePage from '../../../components/app/votePage.svelte';
+
+	let poll: poll;
+	let isLoading = true;
+	onMount(() => {
+		let slug = $page.params.slug;
+		onSnapshot(doc(db, 'polls', slug), { includeMetadataChanges: true }, (doc) => {
+			if (doc.data()) {
+				poll = { ...(doc.data() as poll), _id: doc.id };
+			}
+			isLoading = false;
+		});
+	});
 </script>
 
-<div
-	class="sticky top-0 w-full h-16 flex justify-center items-center backdrop-blur-lg bg-[rgba(0,0,0,0.32)]"
->
-	<h1 class="text-center">Title</h1>
-</div>
-
-<Wrapper>
-	<div class="flex flex-col w-full justify-center gap-11 min-h-[calc(100vh-4rem)]">
-		<button class="btn variant-filled-secondary btn-xl w-full">Hello 2</button>
-		<button class="btn variant-filled-secondary btn-xl w-full">Hello 2</button>
-		<button class="btn variant-filled-secondary btn-xl w-full">Hello 2</button>
-	</div>
-</Wrapper>
+{#if isLoading}
+	<p>Loding...</p>
+{:else}
+	<VotePage {poll} />
+{/if}
