@@ -6,6 +6,7 @@
 	import { userStore } from '../../../store/user';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import LoadingScreen from '../../../components/LoadingScreen.svelte';
 	let isLoaded = false;
 	onMount(() => {
 		onAuthStateChanged(auth, (user) => {
@@ -29,9 +30,12 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Admin console</title>
+</svelte:head>
 <Wrapper>
 	{#if !isLoaded}
-		<p>Loading...</p>
+		<LoadingScreen />
 	{:else}
 		<slot />
 	{/if}

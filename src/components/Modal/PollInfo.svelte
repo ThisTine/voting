@@ -29,9 +29,10 @@
 			<span class="chip variant-filled">{choice}</span>
 		{/each}
 	</div>
-	<button
-		class="btn variant-filled-error w-fit flex self-end"
-		disabled={isLoading}
-		on:click={deletePoll}>{isLoading ? 'Deleting' : 'Delete'}</button
-	>
+	<div class="flex self-end gap-5">
+		<a class="btn variant-filled-primary" href="/admin/result/{poll._id}">Result</a>
+		<button class="btn variant-filled-error w-fit" disabled={isLoading} on:click={deletePoll}
+			>{isLoading ? 'Deleting' : 'Delete'}</button
+		>
+	</div>
 </div>

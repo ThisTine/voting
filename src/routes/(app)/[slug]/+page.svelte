@@ -1,13 +1,10 @@
 <script lang="ts">
-	import Wrapper from '../../../components/Wrapper.svelte';
-	import Choices from '../../../components/voter/Choices.svelte';
-	import { Stepper, Step } from '@skeletonlabs/skeleton';
-	import VoteInput from '../../../components/voter/VoteInput.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { doc, onSnapshot } from 'firebase/firestore';
 	import { db, type poll } from '../../../functions/firebase';
 	import VotePage from '../../../components/app/votePage.svelte';
+	import LoadingScreen from '../../../components/LoadingScreen.svelte';
 
 	let poll: poll;
 	let isLoading = true;
@@ -23,7 +20,7 @@
 </script>
 
 {#if isLoading}
-	<p>Loding...</p>
+	<LoadingScreen />
 {:else}
 	<VotePage {poll} />
 {/if}
