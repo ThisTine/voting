@@ -14,6 +14,8 @@ FROM node:alpine as runner
 
 WORKDIR /vote
 
+COPY --from=builder /vote/node_modules ./node_modules
+
 COPY --from=builder /vote/build ./build
 
 COPY --from=builder /vote/package.json .
